@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mental Wellness Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #e5ddd5; padding: 20px; }
+        .chat-container { max-width: 600px; margin: 0 auto; background: #fff; padding: 10px; border-radius: 8px; }
+        .message { padding: 8px 12px; margin: 8px; border-radius: 15px; max-width: 80%; }
+        .assistant { background: #dcf8c6; align-self: flex-start; }
+        .user { background: #34b7f1; color: #fff; align-self: flex-end; }
+        .messages { display: flex; flex-direction: column; }
+        .input-form { display: flex; margin-top: 20px; }
+        .input-form input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 20px; }
+        .input-form button { padding: 10px 15px; margin-left: 10px; border: none; background: #4caf50; color: white; border-radius: 20px; cursor: pointer; }
+        .report { background: #f1f0f0; padding: 15px; margin-top: 20px; border-radius: 10px; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Mental Wellness Assistant</h2>
+        <div class="messages">
+            {% for sender, msg in chat %}
+                <div class="message {{ sender }}">{{ msg }}</div>
+            {% endfor %}
+        </div>
+        <form class="input-form" method="post">
+            <input type="text" name="message" placeholder="Type your message..." required>
+            <button type="submit">Send</button>
+        </form>
+        {% if report %}
+            <div class="report">
+                <strong>Wellness Report:</strong><br><br>
+                {{ report|safe }}
+            </div>
+        {% endif %}
+        <p><a href="{{ url_for('reset') }}">Reset Conversation</a></p>
+    </div>
+</body>
+</html>
